@@ -25,11 +25,11 @@ describe("Hello World!", () => {
 
     it("should not allow anyone other than the owner to call transferownership",async () => {
         const signers = await ethers.getSigners();
-        let owner = await helloWorldContract.owner();
-        console.log("The Owner before is " + owner);
-        const tx = await helloWorldContract.transferOwnership(signers[1].address);
-        await tx.wait();
-        owner = await helloWorldContract.owner();
-        console.log("The owner after is " + owner);
+        await expect(
+            helloWorldContract
+            .connect(signers[1])
+            .transferOwnership(signers[1].address)
+        ).to.be.revertedWith("Caller is not the owner");
+       
     });
 });
