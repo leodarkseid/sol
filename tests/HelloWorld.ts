@@ -8,7 +8,7 @@ describe("Hello World!", () => {
 
     beforeEach( async () => {
         const helloWorldContractFactory = await ethers.getContractFactory("HelloWorld");
-        const helloWorldContract = await helloWorldContractFactory.deploy();
+        helloWorldContract = await helloWorldContractFactory.deploy();
         await helloWorldContract.deployed();
     })
     it("should return Hello World!", async () => {
@@ -22,4 +22,8 @@ describe("Hello World!", () => {
         const owner = await helloWorldContract.owner();
         expect(owner).to.eq(deployerAccount.address);
     });
+
+    it("should not allow anyone other than the owner to call transferownership",async () => {
+        helloWorldContract
+    })
 });
